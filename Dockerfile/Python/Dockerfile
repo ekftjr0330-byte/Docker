@@ -1,7 +1,7 @@
 FROM python:3.14-alpine
 WORKDIR /app
 COPY app.py .
-RUN apt-get install -y curl 
-RUN pip install --no-cache-dir flask
+RUN pip3 install --no-cache-dir flask &&  apk add --no-cache curl && rm -rf /root/.cache/
+RUN adduser --disabled-password --gecos '' app-user && chown -R app-user: /app
 EXPOSE 8080
 CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=8080"]
