@@ -1,15 +1,7 @@
-FROM python:3.12-slim
-
+FROM python:3.14-alpine
 WORKDIR /app
-
 COPY app.py .
-
-RUN apt-get update && \
-    apt-get install -y curl && \
-    apt-get clean
-
+RUN apt-get install -y curl 
 RUN pip install --no-cache-dir flask
-
 EXPOSE 8080
-
-CMD ["python", "app.py"]
+CMD ["python3", "-m",  "flask", "--host=0.0.0.0", "--port=8080" ]
